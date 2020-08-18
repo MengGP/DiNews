@@ -13,7 +13,7 @@ import java.net.URL;
 /*
     Класс реализует скачивание данных - по протоколу HTTP в режиме асинхронного задания
  */
-public class dataDownloader extends AsyncTask<String, Void, String> {
+public class DataDownloader extends AsyncTask<String, Void, String> {
 
     private static final String TAG = "DownloadData";
 

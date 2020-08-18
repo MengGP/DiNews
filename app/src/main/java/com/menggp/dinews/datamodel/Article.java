@@ -1,5 +1,7 @@
 package com.menggp.dinews.datamodel;
 
+import androidx.annotation.NonNull;
+
 import java.net.URL;
 
 /*
@@ -38,12 +40,24 @@ public class Article {
 
 //    private Source source;
 //    private String author;
+    private long id;
     private String title;
     private String description;
     private String url;
     private String urlToImage;
     private String publishedAt;
 //    private String content;
+    private int setNum;
+
+    public Article(long id, String title, String urlToImage, String description, String publishedAt, String url, int setNum) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.urlToImage = urlToImage;
+        this.publishedAt = publishedAt;
+        this.setNum = setNum;
+    }
 
     /*
     public Source getSource() {
@@ -70,6 +84,14 @@ public class Article {
         this.content = content;
     }
      */
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -111,5 +133,24 @@ public class Article {
         this.publishedAt = publishedAt;
     }
 
+    public int getSetNum() {
+        return setNum;
+    }
 
+    public void setSetNum(int setNum) {
+        this.setNum = setNum;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Article id = " + id + "\n" +
+                "title : " + title +  "\n" +
+                "imgURL : " + urlToImage + "\n" +
+                "description : " + description + "\n" +
+                "date : " + publishedAt + "\n" +
+                "url : " + url + "\n" +
+                "set_num : " + setNum;
+
+    }
 }
