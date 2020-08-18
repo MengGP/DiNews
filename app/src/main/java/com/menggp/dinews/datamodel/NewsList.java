@@ -7,11 +7,12 @@ import java.util.List;
  */
 public class NewsList {
 
-    private String status;
-    private long totalResults;
+//    private String status;
+//    private long totalResults;
 
     List<Article> articles;
 
+    /*
     public String getStatus() {
         return status;
     }
@@ -27,6 +28,7 @@ public class NewsList {
     public void setTotalResults(long totalResults) {
         this.totalResults = totalResults;
     }
+     */
 
     public List<Article> getArticles() {
         return articles;

@@ -9,7 +9,7 @@ public class Article {
 
     /*
         Внутренний класс - описывает обхъек класса Source - с 2я полями
-    */
+
     private class Source {
         private String id;
         private String name;
@@ -34,16 +34,18 @@ public class Article {
             this.name = name;
         }
     }
+     */
 
-    private Source source;
-    private String author;
+//    private Source source;
+//    private String author;
     private String title;
     private String description;
     private String url;
     private String urlToImage;
     private String publishedAt;
-    private String content;
+//    private String content;
 
+    /*
     public Source getSource() {
         return source;
     }
@@ -59,6 +61,15 @@ public class Article {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+        public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+     */
 
     public String getTitle() {
         return title;
@@ -100,11 +111,5 @@ public class Article {
         this.publishedAt = publishedAt;
     }
 
-    public String getContent() {
-        return content;
-    }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
 }
