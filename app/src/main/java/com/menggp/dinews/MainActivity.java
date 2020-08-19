@@ -8,10 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.menggp.dinews.adapters.PageAdapter;
-import com.menggp.dinews.datamodel.Article;
 import com.menggp.dinews.repository.DatabaseAdapter;
-
-import java.util.List;
 
 /*
     Основная активити прложения:
@@ -40,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         if ( savedInstanceState == null ) {
             // при холодном запуске - очищаем таблицу БД с КЭШем новостей и пробуем загрузить новости с первой ссылки
             dbAdapter.resetNewsCache();
-            dbAdapter.loadNewCache(NEWS_SOURCE, NEWS_1 );
+            dbAdapter.loadNewsCache(NEWS_SOURCE, NEWS_1 );
             Log.d(LOG_TAG, " --- --- ---> Cold start ");
         }
 
@@ -49,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ViewPager pager = (ViewPager)findViewById(R.id.pager);
-        PageAdapter pageAdapter = new PageAdapter(this, getSupportFragmentManager(), FragmentStatePagerAdapter.POSITION_NONE);
+        PageAdapter pageAdapter = new PageAdapter(
+                this,
+                getSupportFragmentManager(),
+                FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         pager.setAdapter( pageAdapter );
 
 

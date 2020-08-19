@@ -17,6 +17,7 @@ import java.util.concurrent.ExecutionException;
 public class DatabaseAdapter {
 
     private static final String LOG_TAG = "DatabaseAdapter";
+    private static final int NO_SET_NUM = 0;
 
     private DatabaseHelper dbHelper;
     private SQLiteDatabase db;
@@ -51,12 +52,25 @@ public class DatabaseAdapter {
         return result;
     }
 
+    // Метод возвращает заданный набор новостей из таблицы news_cache
+    public List<Article> getArticles(int setNumClause) {
+        return getArticlesGeneral(setNumClause);
+    }
+
     // Метод возвращает все записи из таблицы news_cache
     public List<Article> getArticles() {
+        return getArticlesGeneral(NO_SET_NUM);
+    }
+
+    // Метод возвращает записи из таблицы news_cache
+    private List<Article> getArticlesGeneral(int setNumClause) {
         List<Article> articles = new ArrayList<>(); // результирующий список
         this.open();
 
-        Cursor cursor = SQLiteQueryHandler.getAllArticles(db);
+        // Запрашиваем данные из БД в зависимости от условий
+        Cursor cursor;
+        if ( setNumClause != 0) cursor = SQLiteQueryHandler.getArticles(db, setNumClause);
+        else cursor = SQLiteQueryHandler.getAllArticles(db);
 
         if ( cursor.moveToFirst() ) {
             do {
@@ -87,7 +101,7 @@ public class DatabaseAdapter {
     }
 
     // Метод загружает список новостей с переданного URL
-    public void loadNewCache(String url, int setNum) {
+    public void loadNewsCache(String url, int setNum) {
         // Скачиваем данные с удаленного узла в формате JSON
         DataDownloader dataDownloader = new DataDownloader();
         dataDownloader.execute( url+setNum );

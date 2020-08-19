@@ -2,16 +2,17 @@ package com.menggp.dinews;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.menggp.dinews.adapters.ArticlesAdapter;
 import com.menggp.dinews.datamodel.Article;
 import com.menggp.dinews.repository.DatabaseAdapter;
 
@@ -23,7 +24,6 @@ public class PageFragment extends Fragment {
 
     // Номер страницы
     private int pageNumber;
-
     DatabaseAdapter dbAdapter;
 
     // конструктор фрагмента
@@ -42,50 +42,51 @@ public class PageFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageNumber = getArguments() != null ? getArguments().getInt("num") : 1;
+        pageNumber = getArguments() != null ? getArguments().getInt("num")+1 : 1;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View result;
+        View view;
+        ListView newsListView;
+        List<Article> articles;
+        ArticlesAdapter articlesAdapter;
         dbAdapter = new DatabaseAdapter( inflater.getContext() );
 
         // Проверяем - есть ли данные в КЭШе для открывамой страницы
-        if ( dbAdapter.getArtCount(pageNumber+1)>0  ) {
+        if ( dbAdapter.getArtCount(pageNumber)>0  ) {
+            // Если в КЭШе есть данные
+
             // Получаем разметку
-            result = inflater.inflate(R.layout.fragment_page, container, false);
+            view = inflater.inflate(R.layout.fragment_page_list, container, false);
+            // Получаем элементы с разметки
+            newsListView = (ListView)view.findViewById(R.id.news_list);
+            articles = dbAdapter.getArticles(pageNumber);
 
-            // Получаем вид с разметки
-            TextView pageHeader = (TextView) result.findViewById(R.id.displayText);
+            // Создаем адаптер для списка новостей на странице
+            articlesAdapter = new ArticlesAdapter(
+                    inflater.getContext(),
+                    R.layout.article_list_item,
+                    articles
+            );
+            // Устанавливаем адаптер для вида
+            newsListView.setAdapter(articlesAdapter);
 
-            String header = "dbAdapter.getArtCount(pageNumber) = \n" + dbAdapter.getArtCount(pageNumber + 1);
 
-
-
-            // устанавливаем данные на разметку
-            pageHeader.setText(header);
         } else {
+            // Если КЭШ новостей пустой
+
             // Получаем разметку
-            result = inflater.inflate(R.layout.fragment_page, container, false);
-
-            // Получаем вид с разметки
-            TextView pageHeader = (TextView) result.findViewById(R.id.displayText);
-
-            String header = "Have no data : " + pageNumber;
-
-            // устанавливаем данные на разметку
-            pageHeader.setText(header);
-
-
+            view = inflater.inflate(R.layout.fragment_page_empty, container, false);
         }
 
-        return result;
+        return view;
     }
 
     // Метод возвращает строку заголовка страницы ( с номером страницы )
     public static String getTitle(Context context, int position) {
-        return "Страница №" + String.valueOf(position+1);
+        return "Страница #" + String.valueOf(position+1);
     }
 
 }

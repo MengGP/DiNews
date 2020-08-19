@@ -13,11 +13,11 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.menggp.dinews.MainActivity;
 import com.menggp.dinews.PageFragment;
 import com.menggp.dinews.repository.DatabaseAdapter;
-import com.menggp.dinews.repository.DatabaseHelper;
 
 public class PageAdapter extends FragmentStatePagerAdapter {
 
     private static final String LOG_TAG = "PageAdapter";
+    private static final int MAX_PAGE = 5;
 
     private  Context context = null;
     DatabaseAdapter dbAdapter;
@@ -31,7 +31,7 @@ public class PageAdapter extends FragmentStatePagerAdapter {
     // Возвращает количесво страниц - для ViewPager
     @Override
     public int getCount() {
-        return 5;
+        return MAX_PAGE;
     }
 
     // По номеру страницы - возвращает объкт фрагмента (с помошью фбричного метода PageFragment.newInstance() )
@@ -39,10 +39,10 @@ public class PageAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         // КЭШируем данные с новой ссылки в БД - если их там нет
-        // DatabaseAdapter dbAdapter = new DatabaseAdapter( context );
-
-        if ( dbAdapter.getArtCount( position+1 ) == 0  ) {
-            dbAdapter.loadNewCache(MainActivity.NEWS_SOURCE, position+1 );
+        int currPage = position+1;
+        Log.d(LOG_TAG, " --- --- --- >>> currPage = " + currPage + " <<< --- --- --- " );
+        if ( dbAdapter.getArtCount( currPage ) == 0  ) {
+            dbAdapter.loadNewsCache(MainActivity.NEWS_SOURCE, currPage );
         }
 
         return PageFragment.newInstance(position);

@@ -9,6 +9,17 @@ import com.menggp.dinews.datamodel.Article;
 
 public class SQLiteQueryHandler {
 
+    // Массив строк - содержащий получаемые в запросе поля
+    private static String[] columns = new String[] {
+            DatabaseHelper.COL_ID,
+            DatabaseHelper.COL_TITLE,
+            DatabaseHelper.COL_IMG_URL,
+            DatabaseHelper.COL_DESCRIPTION,
+            DatabaseHelper.COL_DATE,
+            DatabaseHelper.COL_URL,
+            DatabaseHelper.COL_SET_NUM,
+    };
+
     // удаление данных news_cache
     static void resetNewsCache(SQLiteDatabase db) {
         db.execSQL( "DELETE FROM " + DatabaseHelper.TAB_NEWS_CACHE );
@@ -36,6 +47,7 @@ public class SQLiteQueryHandler {
     // возвращает все записи таблицы news_cache в виде курсора
     static Cursor getAllArticles(SQLiteDatabase db) {
         // Массив строк - содержащий получаемые в запросе поля
+        /*
         String[] columns = new String[] {
                 DatabaseHelper.COL_ID,
                 DatabaseHelper.COL_TITLE,
@@ -45,6 +57,7 @@ public class SQLiteQueryHandler {
                 DatabaseHelper.COL_URL,
                 DatabaseHelper.COL_SET_NUM,
         };
+         */
 
         return db.query(
                 DatabaseHelper.TAB_NEWS_CACHE,  // таблица
@@ -57,6 +70,24 @@ public class SQLiteQueryHandler {
         );
 
     }
+
+    // Возвращает новости по номеру набора из news_cache в виде курсора
+    public static Cursor getArticles(SQLiteDatabase db, int setNum) {
+        // Условие и агрументы условия
+        String whereClause =  DatabaseHelper.COL_SET_NUM + " = ? ";
+        String[] whereArgs = new String[] { String.valueOf(setNum) };
+
+        return db.query(
+                DatabaseHelper.TAB_NEWS_CACHE,  // таблица
+                columns,                        // поля
+                whereClause,                    // блок условий
+                whereArgs,                      // аргументы условий
+                null,                  // блок группировки
+                null,                   // блок HAVING
+                null                   // блок сортировки
+        );
+    }
+
 
     // Возвращает количество закештрованных новостей для указанного набора
     public static long getArtCount(SQLiteDatabase db, int setNum) {
