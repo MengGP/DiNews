@@ -6,4 +6,4 @@
     Автор: Oleg Ustsov
     Дата выполнения: 2020-08-19
     Минимальная поддерживаемая версия - Android 5.0 (minSDK=21)
-    Выполнено в Android Studio 3, язык Java
+    Выполнено в Android Studio 4, язык Java
