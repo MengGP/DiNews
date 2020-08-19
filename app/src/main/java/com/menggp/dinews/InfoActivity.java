@@ -7,43 +7,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
-/*
-    Активити новости
-        - отображает новость в элементе WebView
- */
-public class NewsActivity extends AppCompatActivity {
+public class InfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news);
+        setContentView(R.layout.activity_info);
 
         // Настройка ActionBar
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle(R.string.news_view);
+            actionBar.setTitle(R.string.about_program);
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        // Получем данные из предыдущей Activity
-        String newsUrl="";
-        Bundle extras = getIntent().getExtras();
-        if ( extras != null ) {
-            newsUrl = extras.getString(MainActivity.NEWS_URL_KEY);
-        }
-
-        // Получаем элементы разметки
-        WebView webViewBrowser = (WebView)findViewById(R.id.web_view_browser);
-
-        // Настраиваем и передаем ссылку для WebView
-        webViewBrowser.getSettings().setJavaScriptEnabled(true);
-        webViewBrowser.setWebViewClient( new WebViewClient() );
-        webViewBrowser.loadUrl(newsUrl);
 
     }
 

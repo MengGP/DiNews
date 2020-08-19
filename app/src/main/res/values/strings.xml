@@ -3,9 +3,24 @@
 
     <string name="public_date">Дата публикации:</string>
     <string name="have_no_data">Нет данных. \n Возможо нет достпа к интренету.</string>
+    <string name="news_view">Просмотр новости</string>
+    <string name="about_program">О приложении</string>
 
     <string name="cd_news_img">Изображение новости</string>
 
+    <string name="readmeMD">
+<big>Тестовое задание Android:\n
+    Digital nomads\n</big>
+\n
+Общие сведения:\n
+--------------------------------------------\n
+    Автор: Oleg Ustsov\n
+    Дата выполнения: 2020-08-19\n
+    Мин. поддерживаемая версия - 5.0 (minSDK=21)\n
+    Выполнено в Android Studio 4, язык Java\n
+\n
+    </string>
+    <string name="icon8_text">В этом проекте использованы материалы полученные с ресурса ICON8 ( https://icons8.ru ) </string>
 
 
 </resources>

@@ -1,12 +1,16 @@
 package com.menggp.dinews;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     // --- Публичные константы приложения
     public static final String SHOW_NEWS_ACTIVITY = "com.menggp.dinews.SHOW_NEWS_ACTIVITY";
+    public static final String SHOW_INFO_ACTIVITY = "com.menggp.dinews.SHOW_INFO_ACTIVITY";
     public static final String NEWS_URL_KEY = "news_url";
     public static final String PAGE_NUM_KEY = "page_num";
     public static final String NEWS_SOURCE = "https://newsapi.org/v2/everything?q=android&from=2019-04-00&sortBy=publishedAt&apiKey=26eddb253e7840f988aec61f2ece2907&page=";
@@ -76,6 +81,29 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) { }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0
+                ,1
+                ,0
+                ,"info")
+                .setIcon(R.drawable.about_program)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return true;
+    } // end_method
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case 1:
+                Intent intentSettings = new Intent(SHOW_INFO_ACTIVITY);
+                startActivity(intentSettings);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    } // end_method
 
     // Метод отбработки нажатия на кнопку обновления
     public void onClickUpdateNewsList(View view) {

@@ -16,6 +16,9 @@
     <style name="text22">
         <item name="android:textSize">22sp</item>
     </style>
+    <style name="text16">
+        <item name="android:textSize">16sp</item>
+    </style>
     <style name="tex12">
         <item name="android:textSize">12sp</item>
     </style>
