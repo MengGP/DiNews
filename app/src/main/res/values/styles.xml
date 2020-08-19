@@ -12,5 +12,21 @@
         <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
 
+    <!-- TEXT styles -->
+    <style name="text22">
+        <item name="android:textSize">22sp</item>
+    </style>
+    <style name="tex12">
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="tex12_bold">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="tex12_italic">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
 
 </resources>

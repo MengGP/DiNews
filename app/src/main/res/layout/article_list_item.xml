@@ -1,30 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Разметка для новости в списке
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Заголовок -->
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="10sp"/>
+        android:layout_margin="4dp"
+        style="@style/tex12_bold"/>
 
-    <ImageView
-        android:id="@+id/img_url"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        />
-
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="10sp"/>
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
+        <!-- Изображение новости -->
+        <ImageView
+            android:id="@+id/img_url"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="4dp"
+            android:contentDescription="@string/cd_news_img"/>
+        <!-- Описание новости -->
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            style="@style/tex12"/>
+
+    </LinearLayout>
+
+    <!-- Дата публикации -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="10sp"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="@string/public_date"
+            style="@style/tex12_italic"/>
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            style="@style/tex12_italic"/>
+
+    </LinearLayout>
 
 </LinearLayout>

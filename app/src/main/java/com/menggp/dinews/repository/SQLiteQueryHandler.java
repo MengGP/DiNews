@@ -15,7 +15,7 @@ public class SQLiteQueryHandler {
             DatabaseHelper.COL_TITLE,
             DatabaseHelper.COL_IMG_URL,
             DatabaseHelper.COL_DESCRIPTION,
-            DatabaseHelper.COL_DATE,
+            "strftime('%Y-%m-%d',"+ DatabaseHelper.COL_DATE + ")",
             DatabaseHelper.COL_URL,
             DatabaseHelper.COL_SET_NUM,
     };

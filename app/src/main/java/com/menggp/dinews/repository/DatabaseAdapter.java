@@ -10,6 +10,7 @@ import com.menggp.dinews.datamodel.NewsList;
 import com.menggp.dinews.services.DataDownloader;
 import com.menggp.dinews.services.JSONHelper;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -83,7 +84,7 @@ public class DatabaseAdapter {
                 String title = cursor.getString( cursor.getColumnIndex( dbHelper.COL_TITLE ) );
                 String imgURL = cursor.getString( cursor.getColumnIndex( dbHelper.COL_IMG_URL ) );
                 String description = cursor.getString( cursor.getColumnIndex( dbHelper.COL_DESCRIPTION ) );
-                String date = cursor.getString( cursor.getColumnIndex( dbHelper.COL_DATE ) );
+                String date = cursor.getString( cursor.getColumnIndex( "strftime('%Y-%m-%d',"+ DatabaseHelper.COL_DATE + ")" ) );
                 String url = cursor.getString( cursor.getColumnIndex( dbHelper.COL_URL ) );
                 int setNum = cursor.getInt( cursor.getColumnIndex( dbHelper.COL_SET_NUM) );
 

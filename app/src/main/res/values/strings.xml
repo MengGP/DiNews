@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">DiNews</string>
+
+    <string name="public_date">Дата публикации:</string>
+    <string name="have_no_data">Нет данных. \n Возможо нет достпа к интренету.</string>
+
+    <string name="cd_news_img">Изображение новости</string>
+
+
+
 </resources>
