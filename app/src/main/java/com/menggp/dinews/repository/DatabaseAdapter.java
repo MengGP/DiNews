@@ -77,6 +77,15 @@ public class DatabaseAdapter {
         return articles;
     }
 
+    // Возвращает количество закешированных новостей для указанного набора
+    public long getArtCount(int setNum) {
+        long count;
+        this.open();
+        count = SQLiteQueryHandler.getArtCount(db, setNum);
+        this.close();
+        return count;
+    }
+
     // Метод загружает список новостей с переданного URL
     public void loadNewCache(String url, int setNum) {
         // Скачиваем данные с удаленного узла в формате JSON

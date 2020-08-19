@@ -2,6 +2,7 @@ package com.menggp.dinews.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.menggp.dinews.datamodel.Article;
@@ -57,4 +58,15 @@ public class SQLiteQueryHandler {
 
     }
 
+    // Возвращает количество закештрованных новостей для указанного набора
+    public static long getArtCount(SQLiteDatabase db, int setNum) {
+        String whereClause =  DatabaseHelper.COL_SET_NUM + " = ? ";
+        String[] whereArgs = new String[] { String.valueOf(setNum) };
+        return DatabaseUtils.queryNumEntries(
+                db,                             // БД
+                DatabaseHelper.TAB_NEWS_CACHE,  // таблица
+                whereClause,
+                whereArgs
+        );
+    }
 }
