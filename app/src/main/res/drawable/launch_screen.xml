@@ -7,8 +7,9 @@
     <!-- Логотип -->
     <item>
         <bitmap
-            android:src="@drawable/a06_ev_img_cat_face"
-            android:gravity="center"/>
+            android:src="@drawable/cat_face"
+            android:gravity="center"
+            />
     </item>
 
 

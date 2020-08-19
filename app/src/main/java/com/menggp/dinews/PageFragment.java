@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,23 +20,26 @@ import com.menggp.dinews.repository.DatabaseAdapter;
 
 import java.util.List;
 
+/*
+    Класс описывает фрагмент - Страница
+        - используется на ViewPager
+ */
 public class PageFragment extends Fragment {
 
     private static final String LOG_TAG = "PageFragment";
 
     // Номер страницы
     private int pageNumber;
-    DatabaseAdapter dbAdapter;
+    private DatabaseAdapter dbAdapter;
 
     // конструктор фрагмента
-    public PageFragment() {
-    }
+    public PageFragment() { }
 
-    // Фабричный метод
+    // Фабричный метод создания страницы
     public static PageFragment newInstance(int page) {
         PageFragment fragment = new PageFragment();
         Bundle args = new Bundle();
-        args.putInt("num", page);
+        args.putInt(MainActivity.PAGE_NUM_KEY, page);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,7 +47,7 @@ public class PageFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageNumber = getArguments() != null ? getArguments().getInt("num")+1 : 1;
+        pageNumber = getArguments() != null ? (getArguments().getInt(MainActivity.PAGE_NUM_KEY)+1) : 1;
     }
 
     @Nullable
@@ -61,17 +63,17 @@ public class PageFragment extends Fragment {
         if ( dbAdapter.getArtCount(pageNumber)>0  ) {
             // Если в КЭШе есть данные
 
-            // Получаем разметку
+            // Получаем разметку - списка статей
             view = inflater.inflate(R.layout.fragment_page_list, container, false);
             // Получаем элементы с разметки
             newsListView = (ListView)view.findViewById(R.id.news_list);
+            // Получаем данные из БД
             articles = dbAdapter.getArticles(pageNumber);
-
             // Создаем адаптер для списка новостей на странице
             articlesAdapter = new ArticlesAdapter(
-                    inflater.getContext(),
-                    R.layout.article_list_item,
-                    articles
+                    inflater.getContext(),          // контекст
+                    R.layout.article_list_item,     // разметка
+                    articles                        // данные
             );
             // Устанавливаем адаптер для вида
             newsListView.setAdapter(articlesAdapter);
@@ -93,11 +95,8 @@ public class PageFragment extends Fragment {
         } else {
             // Если КЭШ новостей пустой
 
-            // Получаем разметку
+            // Получаем разметку - страница заглкшка
             view = inflater.inflate(R.layout.fragment_page_empty, container, false);
-
-
-
         }
 
         return view;

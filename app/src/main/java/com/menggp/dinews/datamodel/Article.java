@@ -2,51 +2,17 @@ package com.menggp.dinews.datamodel;
 
 import androidx.annotation.NonNull;
 
-import java.net.URL;
-
 /*
-    Класс - описывает одину статью
+    Класс - описывает одину статью (новость)
  */
 public class Article {
 
-    /*
-        Внутренний класс - описывает обхъек класса Source - с 2я полями
-
-    private class Source {
-        private String id;
-        private String name;
-
-        public Source(String name) {
-            this.name = name;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
-     */
-
-//    private Source source;
-//    private String author;
     private long id;
     private String title;
     private String description;
     private String url;
     private String urlToImage;
     private String publishedAt;
-//    private String content;
     private int setNum;
 
     public Article(long id, String title, String urlToImage, String description, String publishedAt, String url, int setNum) {
@@ -58,32 +24,6 @@ public class Article {
         this.publishedAt = publishedAt;
         this.setNum = setNum;
     }
-
-    /*
-    public Source getSource() {
-        return source;
-    }
-
-    public void setSource(Source source) {
-        this.source = source;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-        public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-     */
 
     public long getId() {
         return id;

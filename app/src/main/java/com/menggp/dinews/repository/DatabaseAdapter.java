@@ -14,10 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+/*
+    Класс реализует логику работы с БД
+        - для связи модели и БД исопользует класс .repository.DatabaseHelper
+        - запросы вынесены в отдельный класс .repository.SQLiteQueryHandler
+ */
 public class DatabaseAdapter {
 
     private static final String LOG_TAG = "DatabaseAdapter";
-    private static final int NO_SET_NUM = 0;
+    private static final int NO_SET_NUM = 0;                    // констаната - номер набора не задан
 
     private DatabaseHelper dbHelper;
     private SQLiteDatabase db;
@@ -108,7 +113,7 @@ public class DatabaseAdapter {
 
         // Десериализуем JSON в целевые данные
         try {
-            NewsList newsList = JSONHelper.parceJSONNewsList(dataDownloader.get());
+            NewsList newsList = JSONHelper.parseJSONNewsList(dataDownloader.get());
 
             if ( newsList != null ) {
                 // Обрабатываем статьи по одной
@@ -121,13 +126,9 @@ public class DatabaseAdapter {
             } else
                 Log.d(LOG_TAG, " Download data from remote host is unavailable ");
 
-
         } catch (InterruptedException | ExecutionException ex ) {
             Log.d(LOG_TAG, ex.getMessage());
         }
     }
-
-
-
 
 }

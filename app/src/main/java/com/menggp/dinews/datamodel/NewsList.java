@@ -4,31 +4,11 @@ import java.util.List;
 
 /*
     Класс - описывает список статей
+        - используется для удобства десериализации входных данных JSON
  */
 public class NewsList {
 
-//    private String status;
-//    private long totalResults;
-
-    List<Article> articles;
-
-    /*
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public long getTotalResults() {
-        return totalResults;
-    }
-
-    public void setTotalResults(long totalResults) {
-        this.totalResults = totalResults;
-    }
-     */
+    private List<Article> articles;
 
     public List<Article> getArticles() {
         return articles;

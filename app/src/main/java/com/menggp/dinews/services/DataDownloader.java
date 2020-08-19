@@ -11,17 +11,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /*
-    Класс реализует скачивание данных - по протоколу HTTP в режиме асинхронного задания
+    Класс реализует скачивание данных
+        - по протоколу HTTP
+        - в режиме асинхронного задания, т.к. запрещено это делать в основном потоке
  */
 public class DataDownloader extends AsyncTask<String, Void, String> {
 
     private static final String TAG = "DownloadData";
-
-    //@Override
-    //protected void onPostExecute(String s) {
-    //    super.onPostExecute(s);
-    //}
-
 
     @Override
     protected String doInBackground(String... strings) {
@@ -35,13 +31,13 @@ public class DataDownloader extends AsyncTask<String, Void, String> {
         return content;
     }
 
+    // метод загружает данные формата JSON с удаленного узла
     private String download(String urlPath) throws IOException {
         StringBuilder result = new StringBuilder();
         BufferedReader reader = null;
         try
         {
             URL url = new URL(urlPath);
-            //HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line=null;

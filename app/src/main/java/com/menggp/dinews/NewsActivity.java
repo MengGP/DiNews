@@ -30,14 +30,12 @@ public class NewsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        // Получем данные из предыдущей Actiity
+        // Получем данные из предыдущей Activity
         String newsUrl="";
         Bundle extras = getIntent().getExtras();
         if ( extras != null ) {
             newsUrl = extras.getString(MainActivity.NEWS_URL_KEY);
         }
-
-
 
         // Получаем элементы разметки
         WebView webViewBrowser = (WebView)findViewById(R.id.web_view_browser);
@@ -46,7 +44,6 @@ public class NewsActivity extends AppCompatActivity {
         webViewBrowser.getSettings().setJavaScriptEnabled(true);
         webViewBrowser.setWebViewClient( new WebViewClient() );
         webViewBrowser.loadUrl(newsUrl);
-
 
     }
 

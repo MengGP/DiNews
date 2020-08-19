@@ -1,9 +1,6 @@
 package com.menggp.dinews.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,20 +16,12 @@ import com.menggp.dinews.R;
 import com.menggp.dinews.datamodel.Article;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.BitSet;
 import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /*
     Адаптер списка новостей
         - отображестя на странице PageFragment
-        - разметка: article_list_item
+        - разметка элемента: article_list_item
  */
 public class ArticlesAdapter extends ArrayAdapter<Article> {
 
@@ -68,13 +57,13 @@ public class ArticlesAdapter extends ArrayAdapter<Article> {
             // Заголовок
         viewHolder.titleOnList.setText( articleItem.getTitle() );
             // Изображение
-        viewHolder.imgUrlOnList.setImageResource(R.drawable.about_program);
+        viewHolder.imgUrlOnList.setImageResource(R.drawable.no_image);     // изображение-заглушка
         if ( articleItem.getUrlToImage() != null ) {
             if ( articleItem.getUrlToImage().length() > 0 ) {
                 Picasso.get()
-                        .load(articleItem.getUrlToImage())
+                        .load( articleItem.getUrlToImage() )
                         .resize(48, 48)
-                        .error(R.drawable.about_program)
+                        .error(R.drawable.no_image)
                         .into(viewHolder.imgUrlOnList);
             }
         }
@@ -83,12 +72,11 @@ public class ArticlesAdapter extends ArrayAdapter<Article> {
             // Дата
         viewHolder.dateOnList.setText( articleItem.getPublishedAt() );
 
-
         return convertView;
     }
 
     // Приватный класс ViewHolder
-    private class ViewHolder {
+    private static class ViewHolder {
         final TextView titleOnList;
         final ImageView imgUrlOnList;
         final TextView descriptionOnList;

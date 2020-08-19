@@ -46,19 +46,6 @@ public class SQLiteQueryHandler {
 
     // возвращает все записи таблицы news_cache в виде курсора
     static Cursor getAllArticles(SQLiteDatabase db) {
-        // Массив строк - содержащий получаемые в запросе поля
-        /*
-        String[] columns = new String[] {
-                DatabaseHelper.COL_ID,
-                DatabaseHelper.COL_TITLE,
-                DatabaseHelper.COL_IMG_URL,
-                DatabaseHelper.COL_DESCRIPTION,
-                DatabaseHelper.COL_DATE,
-                DatabaseHelper.COL_URL,
-                DatabaseHelper.COL_SET_NUM,
-        };
-         */
-
         return db.query(
                 DatabaseHelper.TAB_NEWS_CACHE,  // таблица
                 columns,                        // поля
