@@ -1,12 +1,15 @@
 package com.menggp.dinews;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,11 +50,11 @@ public class PageFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
         ListView newsListView;
         List<Article> articles;
-        ArticlesAdapter articlesAdapter;
+        final ArticlesAdapter articlesAdapter;
         dbAdapter = new DatabaseAdapter( inflater.getContext() );
 
         // Проверяем - есть ли данные в КЭШе для открывамой страницы
@@ -73,12 +76,28 @@ public class PageFragment extends Fragment {
             // Устанавливаем адаптер для вида
             newsListView.setAdapter(articlesAdapter);
 
+            // Устанавливаем слушатель для списка
+            newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Article article = articlesAdapter.getItem( position );
+                    if ( article != null ) {
+                        Intent intent = new Intent(MainActivity.SHOW_NEWS_ACTIVITY);
+                        intent.putExtra(MainActivity.NEWS_URL_KEY, article.getUrl());
+                        startActivity( intent );
+                    }
+
+                }
+            });
 
         } else {
             // Если КЭШ новостей пустой
 
             // Получаем разметку
             view = inflater.inflate(R.layout.fragment_page_empty, container, false);
+
+
+
         }
 
         return view;

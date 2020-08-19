@@ -6,6 +6,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.menggp.dinews.adapters.PageAdapter;
 import com.menggp.dinews.repository.DatabaseAdapter;
@@ -17,6 +19,9 @@ import com.menggp.dinews.repository.DatabaseAdapter;
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "MainActivity";
+
+    public static final String SHOW_NEWS_ACTIVITY = "com.menggp.dinews.SHOW_NEWS_ACTIVITY";
+    public static final String NEWS_URL_KEY = "news_url";
 
     public static final String NEWS_SOURCE = "https://newsapi.org/v2/everything?q=android&from=2019-04-00&sortBy=publishedAt&apiKey=26eddb253e7840f988aec61f2ece2907&page=";
     private static final int NEWS_1 = 1;
@@ -51,8 +56,13 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         pager.setAdapter( pageAdapter );
-
-
     }
+
+    // Метод обновления
+    public void onClickUpdateNewsList(View view) {
+        Toast.makeText(view.getContext(), "UPDATE", Toast.LENGTH_SHORT).show();
+        recreate();
+    }
+
 
 }
