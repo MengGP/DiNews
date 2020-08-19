@@ -40,7 +40,7 @@ public class PageAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         // КЭШируем данные с новой ссылки в БД - если их там нет
         int currPage = position+1;
-        Log.d(LOG_TAG, " --- --- --- >>> currPage = " + currPage + " <<< --- --- --- " );
+
         if ( dbAdapter.getArtCount( currPage ) == 0  ) {
             dbAdapter.loadNewsCache(MainActivity.NEWS_SOURCE, currPage );
         }
@@ -54,4 +54,6 @@ public class PageAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return PageFragment.getTitle(context, position);
     }
+
+
 }

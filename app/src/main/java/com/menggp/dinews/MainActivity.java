@@ -1,6 +1,7 @@
 package com.menggp.dinews;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int NEWS_5 = 5;
 
     DatabaseAdapter dbAdapter;
+    PageAdapter pageAdapter;
+    ViewPager pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -50,18 +53,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewPager pager = (ViewPager)findViewById(R.id.pager);
-        PageAdapter pageAdapter = new PageAdapter(
+        pager = (ViewPager)findViewById(R.id.pager);
+        pageAdapter = new PageAdapter(
                 this,
                 getSupportFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         pager.setAdapter( pageAdapter );
+
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+
+            @Override
+            public void onPageSelected(int position) {
+                updNewsCache(position+1);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) { }
+        });
     }
 
     // Метод обновления
     public void onClickUpdateNewsList(View view) {
-        Toast.makeText(view.getContext(), "UPDATE", Toast.LENGTH_SHORT).show();
-        recreate();
+        updNewsCache(pager.getCurrentItem() + 1 );
+    }
+
+    // Обновление дынных в КЭШе и на странице - после восстановления связи с интернетом
+    private void updNewsCache(int pageNumber) {
+        dbAdapter.loadNewsCache(NEWS_SOURCE, pageNumber );
+        if ( dbAdapter.getArtCount(pageNumber) > 0 ) {
+            pageAdapter.notifyDataSetChanged();
+            recreate();
+        }
     }
 
 
